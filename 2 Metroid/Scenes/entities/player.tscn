@@ -1,8 +1,80 @@
-[gd_scene load_steps=3 format=3 uid="uid://d033hvdy4e31e"]
+[gd_scene load_steps=9 format=3 uid="uid://d033hvdy4e31e"]
 
 [ext_resource type="Script" uid="uid://blbewa6ide8lk" path="res://Scenes/entities/player.gd" id="1_rd5lp"]
+[ext_resource type="Texture2D" uid="uid://de5wf7al0hknv" path="res://graphics/characters/player.png" id="2_br7jp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rdkcu"]
+
+[sub_resource type="Animation" id="Animation_pegit"]
+resource_name = "run"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Legs:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_amhbr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Legs:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+
+[sub_resource type="Animation" id="Animation_br7jp"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Legs:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+
+[sub_resource type="Animation" id="Animation_h51i4"]
+resource_name = "jump"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Legs:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h51i4"]
+_data = {
+&"Idle": SubResource("Animation_br7jp"),
+&"RESET": SubResource("Animation_amhbr"),
+&"jump": SubResource("Animation_h51i4"),
+&"run": SubResource("Animation_pegit")
+}
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_rd5lp")
@@ -18,3 +90,22 @@ zoom = Vector2(3, 3)
 [node name="ReloadTime" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Legs" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("2_br7jp")
+hframes = 8
+vframes = 3
+frame = 12
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_h51i4")
+}
+autoplay = "Idle"
+
+[node name="Torso" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("2_br7jp")
+hframes = 8
+vframes = 3

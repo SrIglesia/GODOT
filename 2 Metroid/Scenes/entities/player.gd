@@ -4,6 +4,7 @@ var direction_x: float
 var speed:= 50
 @export var jump_strength := 10
 @export var gravity := 10
+signal shoot(pos: Vector2, dir: Vector2)
 
 func get_input():
 	direction_x = Input.get_axis("left", 'right')
@@ -11,8 +12,8 @@ func get_input():
 		velocity.y = -jump_strength
 	if Input.is_action_just_pressed("shoot") and $ReloadTime.time_left == 0:
 		$ReloadTime.start()
-		print('Shot!')
-
+		shoot.emit(position, get_local_mouse_position().normalized())
+	
 	
 func apply_gravity(delta):
 	velocity.y += gravity * delta
@@ -23,3 +24,12 @@ func _physics_process(delta: float) -> void:
 	velocity.x = direction_x * speed
 	apply_gravity(delta)
 	move_and_slide()
+	animation()
+	
+	
+func animation():
+	$Legs.flip_h = direction_x < 0
+	if is_on_floor():
+		$AnimationPlayer.current_animation = 'run' if direction_x else 'Idle'
+	else:
+		$AnimationPlayer.current_animation = 'jump'
