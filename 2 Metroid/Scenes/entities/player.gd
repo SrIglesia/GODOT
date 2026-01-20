@@ -6,6 +6,17 @@ var speed:= 50
 @export var gravity := 10
 signal shoot(pos: Vector2, dir: Vector2)
 
+const gun_directions = {
+	Vector2i(1,0): 0,
+	Vector2i(1,1): 1,
+	Vector2i(0,1): 2,
+	Vector2i(-1,1): 3,
+	Vector2i(-1,0): 4,
+	Vector2i(-1, -1): 5,
+	Vector2i(0, -1): 6,
+	Vector2i(1, -1): 7,
+}
+
 func get_input():
 	direction_x = Input.get_axis("left", 'right')
 	if Input.is_action_just_pressed("jump"):
@@ -13,7 +24,10 @@ func get_input():
 	if Input.is_action_just_pressed("shoot") and $ReloadTime.time_left == 0:
 		$ReloadTime.start()
 		shoot.emit(position, get_local_mouse_position().normalized())
-	
+		
+		var tween = get_tree().create_tween()
+		tween.tween_property($Marker, "scale", Vector2(0.1, 0.1), 0.2)
+		tween.tween_property($Marker, "scale", Vector2(0.3, 0.3), 0.4)
 	
 func apply_gravity(delta):
 	velocity.y += gravity * delta
@@ -25,6 +39,7 @@ func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
 	move_and_slide()
 	animation()
+	update_marker()
 	
 	
 func animation():
@@ -33,3 +48,11 @@ func animation():
 		$AnimationPlayer.current_animation = 'run' if direction_x else 'Idle'
 	else:
 		$AnimationPlayer.current_animation = 'jump'
+	var raw_dir = get_local_mouse_position().normalized()
+	var adjusted_dir = Vector2i(round(raw_dir.x), round(raw_dir.y))
+	print(adjusted_dir)
+	$Torso.frame = gun_directions[adjusted_dir]
+	
+
+func update_marker():
+	$Marker.position = get_local_mouse_position().normalized() * 45

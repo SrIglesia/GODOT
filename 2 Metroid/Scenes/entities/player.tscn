@@ -1,14 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://d033hvdy4e31e"]
+[gd_scene load_steps=10 format=3 uid="uid://d033hvdy4e31e"]
 
 [ext_resource type="Script" uid="uid://blbewa6ide8lk" path="res://Scenes/entities/player.gd" id="1_rd5lp"]
 [ext_resource type="Texture2D" uid="uid://de5wf7al0hknv" path="res://graphics/characters/player.png" id="2_br7jp"]
+[ext_resource type="Texture2D" uid="uid://otyoj5px7yk7" path="res://graphics/ui/crosshair.png" id="3_pegit"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rdkcu"]
 
-[sub_resource type="Animation" id="Animation_pegit"]
-resource_name = "run"
-length = 1.4
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_br7jp"]
+resource_name = "Idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -16,10 +15,10 @@ tracks/0/path = NodePath("Legs:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [9, 10, 11, 12, 13, 14, 15]
+"values": [16]
 }
 
 [sub_resource type="Animation" id="Animation_amhbr"]
@@ -37,21 +36,6 @@ tracks/0/keys = {
 "values": [12]
 }
 
-[sub_resource type="Animation" id="Animation_br7jp"]
-resource_name = "Idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Legs:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [16]
-}
-
 [sub_resource type="Animation" id="Animation_h51i4"]
 resource_name = "jump"
 loop_mode = 1
@@ -66,6 +50,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [17]
+}
+
+[sub_resource type="Animation" id="Animation_pegit"]
+resource_name = "run"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Legs:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 12, 13, 14, 15]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h51i4"]
@@ -105,7 +106,11 @@ libraries = {
 autoplay = "Idle"
 
 [node name="Torso" type="Sprite2D" parent="."]
-position = Vector2(0, -9)
+position = Vector2(0, -8)
 texture = ExtResource("2_br7jp")
 hframes = 8
 vframes = 3
+
+[node name="Marker" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_pegit")
