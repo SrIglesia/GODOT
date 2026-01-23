@@ -1,11 +1,10 @@
-[gd_scene load_steps=15 format=4 uid="uid://di3ye4phtnmrc"]
+[gd_scene load_steps=14 format=4 uid="uid://di3ye4phtnmrc"]
 
 [ext_resource type="PackedScene" uid="uid://d033hvdy4e31e" path="res://Scenes/entities/player.tscn" id="1_6k836"]
 [ext_resource type="Script" uid="uid://dy3ic7btp6dl5" path="res://Scenes/levels/level.gd" id="1_vbunw"]
 [ext_resource type="Texture2D" uid="uid://cgh7234wked4l" path="res://graphics/tilesets/walls.png" id="2_5pa0r"]
 [ext_resource type="Texture2D" uid="uid://c7v0ifpdabs2i" path="res://graphics/tilesets/subway.png" id="3_d6e32"]
 [ext_resource type="PackedScene" uid="uid://drkkjh3ltrbl7" path="res://Scenes/entities/drone.tscn" id="5_5e0y8"]
-[ext_resource type="Texture2D" uid="uid://6j2he24a4uda" path="res://graphics/lights/l3.png" id="6_h6uxn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5e0y8"]
 texture = ExtResource("2_5pa0r")
@@ -2352,23 +2351,17 @@ tile_set = SubResource("TileSet_61bdw")
 position = Vector2(284, 60)
 
 [node name="Drone" parent="Entities" instance=ExtResource("5_5e0y8")]
-position = Vector2(412, 34)
+position = Vector2(433, 43)
 
 [node name="Drone2" parent="Entities" instance=ExtResource("5_5e0y8")]
 position = Vector2(603, 34)
 
+[node name="Drone3" parent="Entities" instance=ExtResource("5_5e0y8")]
+position = Vector2(166, 35)
+
 [node name="Drone4" parent="Entities" instance=ExtResource("5_5e0y8")]
-position = Vector2(412, 22)
+position = Vector2(342, 19)
 
 [node name="Bullets" type="Node2D" parent="."]
-
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-color = Color(0.28118676, 0.2811869, 0.28118682, 1)
-blend_mode = 2
-shadow_enabled = true
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(400, 40)
-texture = ExtResource("6_h6uxn")
 
 [connection signal="shoot" from="Entities/Player" to="." method="_on_player_shoot"]

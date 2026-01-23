@@ -10,3 +10,9 @@ func _on_player_shoot(pos: Vector2, dir: Vector2) -> void:
 	bullet.scale = Vector2(0, 0)
 	var tween = get_tree().create_tween()
 	tween.tween_property(bullet, 'scale', Vector2(1, 1),0.5)
+
+func _ready() -> void:
+	var light_tween = get_tree().create_tween()
+	light_tween.set_loops()
+	light_tween.tween_property($PointLight2D, "energy",1.6, 0.05)
+	light_tween.tween_property($PointLight2D, "energy",0.4, 0.05)

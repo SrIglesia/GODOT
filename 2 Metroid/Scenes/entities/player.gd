@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var direction_x: float
-var speed:= 50
+var speed:= 100
 @export var jump_strength := 10
 @export var gravity := 10
 signal shoot(pos: Vector2, dir: Vector2)
@@ -24,6 +24,7 @@ func get_input():
 	if Input.is_action_just_pressed("shoot") and $ReloadTime.time_left == 0:
 		$ReloadTime.start()
 		shoot.emit(position, get_local_mouse_position().normalized())
+		$Shooting_sound.play()
 		
 		var tween = get_tree().create_tween()
 		tween.tween_property($Marker, "scale", Vector2(0.1, 0.1), 0.2)
@@ -50,7 +51,6 @@ func animation():
 		$AnimationPlayer.current_animation = 'jump'
 	var raw_dir = get_local_mouse_position().normalized()
 	var adjusted_dir = Vector2i(round(raw_dir.x), round(raw_dir.y))
-	print(adjusted_dir)
 	$Torso.frame = gun_directions[adjusted_dir]
 	
 
